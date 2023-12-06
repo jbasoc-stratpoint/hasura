@@ -1,0 +1,102 @@
+table:
+  name: User
+  schema: public
+array_relationships:
+  - name: Carts
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: Cart
+          schema: public
+remote_relationships:
+  - definition:
+      to_source:
+        field_mapping:
+          email: email
+        relationship_type: object
+        source: test_mongo
+        table:
+          - customers
+    name: customer_details
+  - definition:
+      to_source:
+        field_mapping:
+          office_id: id
+        relationship_type: array
+        source: wookie_test_postgres_dev
+        table:
+          name: Office
+          schema: public
+    name: user_office
+select_permissions:
+  - role: developer
+    permission:
+      columns:
+        - id
+        - first_name
+        - last_name
+        - age
+        - office_id
+        - address
+        - email
+        - shipping_address
+        - created_at
+      filter: {}
+      allow_aggregations: true
+    comment: ""
+  - role: guest
+    permission:
+      columns:
+        - id
+        - first_name
+        - last_name
+        - age
+        - office_id
+        - address
+        - email
+        - shipping_address
+        - created_at
+      filter: {}
+      allow_aggregations: true
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - id
+        - first_name
+        - last_name
+        - age
+        - office_id
+        - address
+        - email
+        - shipping_address
+        - created_at
+      filter: {}
+      allow_aggregations: true
+    comment: ""
+event_triggers:
+  - name: user_sample_notif
+    definition:
+      enable_manual: false
+      insert:
+        columns: '*'
+      update:
+        columns: '*'
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: https://hasurastratpoint.free.beeceptor.com/post
+  - name: user_sample_trigger
+    definition:
+      enable_manual: false
+      insert:
+        columns: '*'
+      update:
+        columns: '*'
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: https://stratpointhasura.free.beeceptor.com/post

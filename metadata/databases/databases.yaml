@@ -1,1 +1,271 @@
-[]
+- name: Postres
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        connection_parameters:
+          database: postgres
+          host: db.kxdbprbnuqoymiezgcdr.supabase.co
+          password: Kostkanz_20033
+          port: 5432
+          username: postgres
+      isolation_level: read-committed
+      use_prepared_statements: false
+  tables: "!include Postres/tables/tables.yaml"
+- name: sample_analytics.transactions
+  kind: mongodb
+  configuration:
+    template: null
+    timeout: null
+    value:
+      connection: mongodb+srv://bmmatias:9KjoF9fomIUu7X6U@test-db.ykb1dxl.mongodb.net/?retryWrites=true&w=majority
+      db: sample_analytics
+  logical_models:
+    - fields:
+        - name: numberInt
+          type:
+            nullable: true
+            scalar: string
+      name: account_id
+    - fields:
+        - name: _id
+          type:
+            nullable: false
+            scalar: objectId
+        - name: limit
+          type:
+            logical_model: limit
+            nullable: false
+        - name: products
+          type:
+            array:
+              nullable: false
+              scalar: string
+            nullable: false
+      name: accounts
+    - fields:
+        - name: date
+          type:
+            logical_model: date
+            nullable: true
+      name: birthdate
+    - fields:
+        - name: _id
+          type:
+            nullable: false
+            scalar: objectId
+        - name: username
+          type:
+            nullable: false
+            scalar: string
+        - name: name
+          type:
+            nullable: false
+            scalar: string
+        - name: address
+          type:
+            nullable: false
+            scalar: string
+        - name: birthdate
+          type:
+            logical_model: birthdate
+            nullable: false
+        - name: email
+          type:
+            nullable: false
+            scalar: string
+        - name: active
+          type:
+            nullable: false
+            scalar: bool
+      name: customers
+    - fields:
+        - name: numberLong
+          type:
+            nullable: true
+            scalar: string
+      name: date
+    - fields:
+        - name: numberInt
+          type:
+            nullable: true
+            scalar: string
+      name: limit
+    - fields:
+        - name: numberInt
+          type:
+            nullable: true
+            scalar: string
+      name: transaction_count
+    - fields:
+        - name: _id
+          type:
+            nullable: false
+            scalar: objectId
+        - name: account_id
+          type:
+            logical_model: account_id
+            nullable: false
+        - name: transaction_count
+          type:
+            logical_model: transaction_count
+            nullable: false
+      name: transactions
+  tables: "!include sample_analytics.transactions/tables/tables.yaml"
+- name: test-db
+  kind: mongodb
+  configuration:
+    template: null
+    timeout: null
+    value:
+      connection: mongodb+srv://bmmatias:9KjoF9fomIUu7X6U@test-db.ykb1dxl.mongodb.net/?retryWrites=true&w=majority
+      db: sample_airbnb
+  tables: "!include test-db/tables/tables.yaml"
+- name: test_mongo
+  kind: mongodb
+  configuration:
+    template: null
+    timeout: null
+    value:
+      connection: mongodb+srv://janbasocsm:Y3dxyFHJQh1rB0nj@cluster0.p13xf54.mongodb.net/?retryWrites=true&w=majority
+      db: sample_analytics
+  logical_models:
+    - fields:
+        - name: _id
+          type:
+            nullable: false
+            scalar: objectId
+        - name: account_id
+          type:
+            logical_model: accounts_account_id
+            nullable: false
+        - name: limit
+          type:
+            logical_model: accounts_limit
+            nullable: false
+        - name: products
+          type:
+            array:
+              nullable: false
+              scalar: string
+            nullable: false
+      name: accounts
+    - fields:
+        - name: numberInt
+          type:
+            nullable: true
+            scalar: string
+      name: accounts_account_id
+    - fields:
+        - name: numberInt
+          type:
+            nullable: true
+            scalar: string
+      name: accounts_limit
+    - fields:
+        - name: _id
+          type:
+            nullable: false
+            scalar: objectId
+        - name: username
+          type:
+            nullable: false
+            scalar: string
+        - name: address
+          type:
+            nullable: false
+            scalar: string
+        - name: birthdate
+          type:
+            nullable: false
+            scalar: date
+        - name: email
+          type:
+            nullable: false
+            scalar: string
+        - name: active
+          type:
+            nullable: false
+            scalar: bool
+      name: customers
+    - fields:
+        - name: _id
+          type:
+            nullable: false
+            scalar: objectId
+        - name: account_id
+          type:
+            logical_model: transactions_account_id
+            nullable: false
+        - name: transaction_count
+          type:
+            logical_model: transactions_transaction_count
+            nullable: false
+        - name: bucket_start_date
+          type:
+            nullable: false
+            scalar: date
+        - name: bucket_end_date
+          type:
+            nullable: false
+            scalar: date
+        - name: transactions
+          type:
+            array:
+              logical_model: transactions_transactions
+              nullable: false
+            nullable: false
+      name: transactions
+    - fields:
+        - name: numberInt
+          type:
+            nullable: true
+            scalar: string
+      name: transactions_account_id
+    - fields:
+        - name: numberInt
+          type:
+            nullable: true
+            scalar: string
+      name: transactions_transaction_count
+    - fields:
+        - name: date
+          type:
+            nullable: false
+            scalar: date
+        - name: amount
+          type:
+            logical_model: transactions_transactions_amount
+            nullable: false
+        - name: transaction_code
+          type:
+            nullable: false
+            scalar: string
+        - name: symbol
+          type:
+            nullable: false
+            scalar: string
+        - name: price
+          type:
+            nullable: false
+            scalar: string
+        - name: total
+          type:
+            nullable: false
+            scalar: string
+      name: transactions_transactions
+    - fields:
+        - name: numberInt
+          type:
+            nullable: true
+            scalar: string
+      name: transactions_transactions_amount
+  tables: "!include test_mongo/tables/tables.yaml"
+- name: wookie_test_postgres_dev
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url: postgresql://postgres:FY7LSQHoTphfKRws@db.vyczsrnlricupzbxcuyz.supabase.co:5432/postgres
+      isolation_level: read-committed
+      use_prepared_statements: false
+  tables: "!include wookie_test_postgres_dev/tables/tables.yaml"

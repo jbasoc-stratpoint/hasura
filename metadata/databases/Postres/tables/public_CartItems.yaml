@@ -1,0 +1,10 @@
+table:
+  name: CartItems
+  schema: public
+object_relationships:
+  - name: Cart
+    using:
+      foreign_key_constraint_on: cart_id
+  - name: Product
+    using:
+      foreign_key_constraint_on: product_id

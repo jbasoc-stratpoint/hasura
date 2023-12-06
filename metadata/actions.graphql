@@ -1,0 +1,41 @@
+type Mutation {
+  add_product(
+    product: ProductDetails!
+  ): Product
+}
+
+type Mutation {
+  createCart(
+    id: bigint!
+    status: String!
+  ): CreateCartOutput
+}
+
+input SampleInput {
+  username: String!
+  password: String!
+}
+
+input ProductDetails {
+  name: String!
+  brand: String!
+  description: String!
+  price: Int!
+}
+
+type SampleOutput {
+  accessToken: String!
+}
+
+type Product {
+  id: String!
+  name: String!
+  brand: String!
+  description: String!
+  price: Int!
+}
+
+type CreateCartOutput {
+  id: bigint!
+}
+

@@ -1,6 +1,20 @@
-actions: []
+actions:
+  - name: add_product
+    definition:
+      kind: synchronous
+      handler: http://localhost:3000/
+    comment: Adding of Product
+  - name: createCart
+    definition:
+      kind: synchronous
+      handler: http://stratpoint.hasura.app/v1/graphql/createCart
 custom_types:
-    enums: []
-    input_objects: []
-    objects: []
-    scalars: []
+  enums: []
+  input_objects:
+    - name: SampleInput
+    - name: ProductDetails
+  objects:
+    - name: SampleOutput
+    - name: Product
+    - name: CreateCartOutput
+  scalars: []

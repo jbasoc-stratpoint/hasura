@@ -1,0 +1,7 @@
+- "!include public_Booked_room.yaml"
+- "!include public_Group.yaml"
+- "!include public_Office.yaml"
+- "!include public_Room.yaml"
+- "!include public_Seat.yaml"
+- "!include public_User_role.yaml"
+- "!include public_reservation.yaml"

@@ -1,1 +1,10 @@
-[]
+- collection: allowed-queries
+  scope:
+    global: false
+    roles:
+      - user
+      - developer
+      - guest
+- collection: not-allowed-query
+  scope:
+    global: true

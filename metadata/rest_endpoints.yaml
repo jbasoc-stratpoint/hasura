@@ -1,0 +1,9 @@
+- comment: User and and its designated offices  ( different tables )
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: user-details
+  methods:
+    - GET
+  name: user-details
+  url: user-details

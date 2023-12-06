@@ -1,0 +1,3 @@
+table:
+  name: reservation
+  schema: public

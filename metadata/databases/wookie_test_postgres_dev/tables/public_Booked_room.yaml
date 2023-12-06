@@ -1,0 +1,3 @@
+table:
+  name: Booked_room
+  schema: public
