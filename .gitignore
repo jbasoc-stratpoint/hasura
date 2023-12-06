@@ -1,0 +1,8 @@
+.DS_Store
+source/.DS_Store
+
+frontend/node_modules
+frontend/.env
+frontend/.next
+
+backend/app/node_modules
