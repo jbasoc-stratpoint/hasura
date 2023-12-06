@@ -1,8 +1,1 @@
-- name: User Report
-  webhook: https://hasurastratpoint.free.beeceptor.com/report
-  schedule: 0 12 * * 5
-  include_in_metadata: true
-  payload:
-    code: 200
-    response: success
-  comment: User Report
+[]
