@@ -30,7 +30,7 @@ services:
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
       HASURA_GRAPHQL_ENABLE_REMOTE_SCHEMA_PERMISSIONS: "true"
       HASURA_GRAPHQL_ENABLED_APIS: config,graphql,metadata,metrics
-      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+      HASURA_GRAPHQL_DATABASE_URL: postgres://jbasoc-stratpoint:7LhuN4iYwyaA@white-haze-06790599.us-west-2.aws.neon.tech/absolute-buffalo-25_db_9287005?options=project%3Dwhite-haze-06790599&sslmode=require
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: http-log,query-log,startup,webhook-log,websocket-log
       HASURA_GRAPHQL_LOG_LEVEL: info 
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: anonymous
