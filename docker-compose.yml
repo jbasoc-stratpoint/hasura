@@ -1,7 +1,7 @@
 version: '3.6'
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:13
     restart: always
     environment:
       POSTGRES_DB: postgres
@@ -11,13 +11,12 @@ services:
       - target: 5432
         published: 5432
     volumes:
-      - ./source/init/init.sh:/docker-entrypoint-initdb.d/init.sh
-      - ./source/init/init.sql:/var/tmp/init.sql
+      - db_data:/var/lib/postgresql/data
     networks:
-    - hasura-prometheus-grafana
+      - hasura-prometheus-grafana
 
   hasura:
-    image: hasura/graphql-engine:v2.32.0.cli-migrations-v3
+    image: hasura/graphql-engine:latest
     ports:
       - "8080:8080"
     depends_on:
@@ -32,7 +31,7 @@ services:
       HASURA_GRAPHQL_ENABLED_APIS: config,graphql,metadata,metrics
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: http-log,query-log,startup,webhook-log,websocket-log
-      HASURA_GRAPHQL_LOG_LEVEL: info 
+      HASURA_GRAPHQL_LOG_LEVEL: info
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: anonymous
       HASURA_GRAPHQL_METRICS_SECRET: hasura
     networks:
@@ -82,3 +81,5 @@ services:
 
 networks:
   hasura-prometheus-grafana:
+volumes:
+  db_data:
