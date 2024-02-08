@@ -1,6 +1,6 @@
 SET check_function_bodies = false;
-CREATE TABLE public.accounts (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+CREATE TABLE IF NOT EXISTS public.accounts (
+    id text NOT NULL,
     type text NOT NULL,
     provider text NOT NULL,
     "providerAccountId" text NOT NULL,
@@ -16,16 +16,21 @@ CREATE TABLE public.accounts (
     "userId" text NOT NULL,
     refresh_token_expires_in integer
 );
-CREATE TABLE public.category (
+CREATE TABLE IF NOT EXISTS public.category (
     id integer NOT NULL,
     name text
 );
-CREATE TABLE public.products (
+CREATE TABLE IF NOT EXISTS public.orders (
+    order_id integer NOT NULL,
+    product_id integer NOT NULL,
+    user_id text NOT NULL
+);
+CREATE TABLE IF NOT EXISTS public.products (
     id integer NOT NULL,
     product_name text NOT NULL,
     product_description text
 );
-CREATE SEQUENCE public.products_id_seq
+CREATE SEQUENCE IF NOT EXISTS public.products_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -33,17 +38,17 @@ CREATE SEQUENCE public.products_id_seq
     NO MAXVALUE
     CACHE 1;
 ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
-CREATE TABLE public.role (
+CREATE TABLE IF NOT EXISTS public.role (
     id integer NOT NULL,
     role_name text NOT NULL
 );
-CREATE TABLE public.sessions (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+CREATE TABLE IF NOT EXISTS public.sessions (
+    id text NOT NULL,
     "sessionToken" text NOT NULL,
     "userId" text NOT NULL,
     expires timestamp with time zone
 );
-CREATE TABLE public.users (
+CREATE TABLE IF NOT EXISTS public.users (
     id text NOT NULL,
     name text,
     email text,
@@ -51,7 +56,7 @@ CREATE TABLE public.users (
     image text,
     role_id integer
 );
-CREATE TABLE public.verification_tokens (
+CREATE TABLE IF NOT EXISTS public.verification_tokens (
     token text NOT NULL,
     identifier text NOT NULL,
     expires timestamp with time zone

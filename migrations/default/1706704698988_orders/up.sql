@@ -1,5 +1,5 @@
 SET check_function_bodies = false;
-CREATE TABLE public.accounts (
+CREATE TABLE IF NOT EXISTS public.accounts (
     id text NOT NULL,
     type text NOT NULL,
     provider text NOT NULL,
@@ -16,21 +16,21 @@ CREATE TABLE public.accounts (
     "userId" text NOT NULL,
     refresh_token_expires_in integer
 );
-CREATE TABLE public.category (
+CREATE TABLE IF NOT EXISTS public.category (
     id integer NOT NULL,
     name text
 );
-CREATE TABLE public.orders (
+CREATE TABLE IF NOT EXISTS public.orders (
     order_id integer NOT NULL,
     product_id integer NOT NULL,
     user_id text NOT NULL
 );
-CREATE TABLE public.products (
+CREATE TABLE IF NOT EXISTS public.products (
     id integer NOT NULL,
     product_name text NOT NULL,
     product_description text
 );
-CREATE SEQUENCE public.products_id_seq
+CREATE SEQUENCE IF NOT EXISTS public.products_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -38,17 +38,17 @@ CREATE SEQUENCE public.products_id_seq
     NO MAXVALUE
     CACHE 1;
 ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
-CREATE TABLE public.role (
+CREATE TABLE IF NOT EXISTS public.role (
     id integer NOT NULL,
     role_name text NOT NULL
 );
-CREATE TABLE public.sessions (
+CREATE TABLE IF NOT EXISTS public.sessions (
     id text NOT NULL,
     "sessionToken" text NOT NULL,
     "userId" text NOT NULL,
     expires timestamp with time zone
 );
-CREATE TABLE public.users (
+CREATE TABLE IF NOT EXISTS public.users (
     id text NOT NULL,
     name text,
     email text,
@@ -56,33 +56,9 @@ CREATE TABLE public.users (
     image text,
     role_id integer
 );
-CREATE TABLE public.verification_tokens (
+CREATE TABLE IF NOT EXISTS public.verification_tokens (
     token text NOT NULL,
     identifier text NOT NULL,
     expires timestamp with time zone
 );
 ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
-ALTER TABLE ONLY public.accounts
-    ADD CONSTRAINT accounts_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY public.category
-    ADD CONSTRAINT category_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY public.orders
-    ADD CONSTRAINT orders_pkey PRIMARY KEY (order_id);
-ALTER TABLE ONLY public.products
-    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY public.role
-    ADD CONSTRAINT role_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY public.sessions
-    ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_email_key UNIQUE (email);
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY public.verification_tokens
-    ADD CONSTRAINT verification_tokens_pkey PRIMARY KEY (token);
-ALTER TABLE ONLY public.orders
-    ADD CONSTRAINT orders_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-ALTER TABLE ONLY public.orders
-    ADD CONSTRAINT orders_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_role_id_fkey FOREIGN KEY (role_id) REFERENCES public.role(id) ON UPDATE RESTRICT ON DELETE CASCADE;
